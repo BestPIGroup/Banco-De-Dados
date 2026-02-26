@@ -1,6 +1,3 @@
-use projeto_Argos;
-create  database projeto_Argos;
-drop database projeto_Argos;
 
 CREATE TABLE unidade (
 	id_unidade INT PRIMARY KEY AUTO_INCREMENT,
@@ -33,6 +30,17 @@ CREATE TABLE permissoes (
     FOREIGN KEY (fk_usuario) REFERENCES usuario(id_usuario)
 );
 
+CREATE TABLE servidor (
+	id_servidor INT PRIMARY KEY AUTO_INCREMENT,
+    fornecedor VARCHAR(100) NOT NULL,
+    modelo VARCHAR(100) NOT NULL,
+    numero_serie INT NOT NULL,
+    ultima_manutencao DATETIME NOT NULL,
+    status VARCHAR(45) NOT NULL,
+    fk_unidade INT,
+    FOREIGN KEY (fk_unidade) REFERENCES unidade(id_unidade)
+);
+
 CREATE TABLE token (
 	id_token INT,
 	fk_servidor INT,
@@ -44,27 +52,6 @@ CREATE TABLE token (
     FOREIGN KEY (fk_usuario) REFERENCES usuario(id_usuario)
 );
 
-CREATE TABLE servidor (
-	id_servidor INT PRIMARY KEY AUTO_INCREMENT,
-    fornecedor VARCHAR(100) NOT NULL,
-    modelo VARCHAR(100) NOT NULL,
-    numero_serie INT NOT NULL,
-    ultima_manutencao DATETIME NOT NULL,
-    status VARCHAR(45) NOT NULL,
-    fk_unidade INT,
-    FOREIGN KEY (fk_unidade) REFERENCES unidade(id_unidade),
-    fk_token INT,
-    FOREIGN KEY (fk_token) REFERENCES token(id_token)
-);
-
-CREATE TABLE registro (
-	id_info INT PRIMARY KEY AUTO_INCREMENT,
-    fk_servidor INT,
-    FOREIGN KEY (fk_servidor) REFERENCES servidor(id_servidor),
-    fk_componente INT,
-    FOREIGN KEY (fk_componente) REFERENCES componente(id_componente)
-);
-
 CREATE TABLE componentes (
 	id_componente INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR (255) NOT NULL,
@@ -73,7 +60,16 @@ CREATE TABLE componentes (
     biblioteca VARCHAR(100) NOT NULL,
     parametros VARCHAR(100) NOT NULL,
     id_servidorComponente INT,
-    FOREIGN KEY (id_servidorComponente) REFERENCES servidorComponente(id_servidorComponente)
+    fk_servidor int,
+    FOREIGN KEY (fk_servidor) REFERENCES servidor(id_servidor)
+);
+
+CREATE TABLE registro (
+	id_info INT PRIMARY KEY AUTO_INCREMENT,
+    fk_servidor INT,
+    FOREIGN KEY (fk_servidor) REFERENCES servidor(id_servidor),
+    fk_componente INT,
+    FOREIGN KEY (fk_componente) REFERENCES componentes(id_componente)
 );
 
 CREATE TABLE servidorComponente (
@@ -82,7 +78,10 @@ CREATE TABLE servidorComponente (
     limite_componente INT NOT NULL,
     PRIMARY KEY (id_servidor, id_componente),
     FOREIGN KEY (id_servidor) REFERENCES servidor(id_servidor),
-    FOREIGN KEY (id_componente) REFERENCES componente(id_componente)
+    FOREIGN KEY (id_componente) REFERENCES componentes(id_componente)
 );
+
+select * from usuario;
+
 
 
