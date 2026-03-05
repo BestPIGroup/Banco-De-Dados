@@ -1,3 +1,6 @@
+create database projeto_Argos;
+
+use projeto_Argos;
 
 CREATE TABLE unidade (
 	id_unidade INT PRIMARY KEY AUTO_INCREMENT,
@@ -14,7 +17,7 @@ CREATE TABLE usuario (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
-    telefone CHAR(12) NOT NULL UNIQUE,
+    telefone CHAR(16) NOT NULL UNIQUE,
     funcao VARCHAR(255) NOT NULL,
     matricula INT NOT NULL UNIQUE,
     fk_responsavel INT,
@@ -35,7 +38,7 @@ CREATE TABLE servidor (
     fornecedor VARCHAR(100) NOT NULL,
     modelo VARCHAR(100) NOT NULL,
     numero_serie INT NOT NULL,
-    ultima_manutencao DATETIME NOT NULL,
+    ultima_manutencao DATETIME DEFAULT CURRENT_TIMESTAMP,
     status VARCHAR(45) NOT NULL,
     fk_unidade INT,
     FOREIGN KEY (fk_unidade) REFERENCES unidade(id_unidade)
