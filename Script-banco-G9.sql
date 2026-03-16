@@ -34,14 +34,16 @@ CREATE TABLE permissoes (
 );
 
 CREATE TABLE servidor (
-	id_servidor INT PRIMARY KEY AUTO_INCREMENT,
+	id_servidor INT,
+    id_token int,
     fornecedor VARCHAR(100) NOT NULL,
     modelo VARCHAR(100) NOT NULL,
     numero_serie INT NOT NULL,
     ultima_manutencao DATETIME DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(45) NOT NULL,
+    status_servidor VARCHAR(45) NOT NULL,
     fk_unidade INT,
-    FOREIGN KEY (fk_unidade) REFERENCES unidade(id_unidade)
+    FOREIGN KEY (fk_unidade) REFERENCES unidade(id_unidade),
+    primary key (id_servidor, id_token)
 );
 
 CREATE TABLE token (
@@ -72,19 +74,21 @@ CREATE TABLE registro (
     fk_servidor INT,
     FOREIGN KEY (fk_servidor) REFERENCES servidor(id_servidor),
     fk_componente INT,
+    valor float,
     FOREIGN KEY (fk_componente) REFERENCES componentes(id_componente)
 );
 
-CREATE TABLE servidorComponente (
+CREATE TABLE Limite_Componente (
 	id_servidor INT,
     id_componente INT,
-    limite_componente INT NOT NULL,
+    nome VARCHAR(45),
+    tipo VARCHAR(45),
+    unidade_medida VARCHAR(45),
+    biblioteca VARCHAR(45),
+    parametros VARCHAR(45),
     PRIMARY KEY (id_servidor, id_componente),
     FOREIGN KEY (id_servidor) REFERENCES servidor(id_servidor),
     FOREIGN KEY (id_componente) REFERENCES componentes(id_componente)
 );
-
-select * from usuario;
-
 
 
