@@ -39,7 +39,6 @@ CREATE TABLE servidor (
     fornecedor VARCHAR(100) NOT NULL,
     modelo VARCHAR(100) NOT NULL,
     numero_serie INT NOT NULL,
-    ultima_manutencao DATETIME DEFAULT CURRENT_TIMESTAMP,
     status_servidor VARCHAR(45) NOT NULL,
     fk_unidade INT,
     FOREIGN KEY (fk_unidade) REFERENCES unidade(id_unidade),
