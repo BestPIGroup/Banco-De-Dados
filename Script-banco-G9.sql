@@ -1,5 +1,8 @@
 
+-- drop database projeto_Argos;
 
+CREATE DATABASE projeto_Argos;
+USE projeto_Argos;
 
 CREATE TABLE unidade (
 	id_unidade INT PRIMARY KEY AUTO_INCREMENT,
