@@ -15,7 +15,7 @@ CREATE TABLE unidade (
 );
 
 CREATE TABLE usuario (
-	id_usuario INT NOT NULL,
+	id_usuario INT NOT NULL AUTO_INCREMENT,
     fk_unidade INT NOT NULL,
     CONSTRAINT fk_unidade_usuario
 		FOREIGN KEY (fk_unidade)
@@ -23,7 +23,7 @@ CREATE TABLE usuario (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(60) NOT NULL,
-    telefone CHAR(11) NOT NULL,
+    telefone VARCHAR(15) NOT NULL,
     funcao VARCHAR(45) NOT NULL,
     identificador INT NOT NULL UNIQUE,
     fk_responsavel INT,
