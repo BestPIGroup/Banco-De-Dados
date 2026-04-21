@@ -55,11 +55,11 @@ CREATE TABLE componente (
 );
 
 CREATE TABLE componente_servidor (
-	id_servidor INT NOT NULL UNIQUE,
+	id_servidor INT NOT NULL,
     CONSTRAINT id_servidor
 		FOREIGN KEY (id_servidor) 
 			REFERENCES servidor(id_servidor),
-    id_componente INT NOT NULL UNIQUE,
+    id_componente INT NOT NULL,
     CONSTRAINT id_componente
 		FOREIGN KEY (id_componente) 
 			REFERENCES componente(id_componente),
