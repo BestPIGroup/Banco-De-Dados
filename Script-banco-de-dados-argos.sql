@@ -35,9 +35,7 @@ CREATE TABLE usuario (
 
 CREATE TABLE servidor (
 	id_servidor INT PRIMARY KEY AUTO_INCREMENT,
-    fornecedor VARCHAR(45) NOT NULL,
-    modelo VARCHAR(45) NOT NULL,
-    endereco_mac CHAR(12) NOT NULL UNIQUE,
+    endereco_mac CHAR(17) NOT NULL UNIQUE,
     status_servidor VARCHAR(45) NOT NULL,
     CONSTRAINT status_servidor 
 		CHECK(status_servidor IN ('Manutenção', 'Inativo', 'Ativo')),
@@ -66,8 +64,8 @@ CREATE TABLE componente_servidor (
 		FOREIGN KEY (id_componente) 
 			REFERENCES componente(id_componente),
     limite_componente INT NOT NULL,
-    PRIMARY KEY (id_servidor, id_componente),
-    exibir BOOLEAN
+    exibir BOOLEAN,
+    PRIMARY KEY (id_servidor, id_componente)
 );
 
 CREATE TABLE registro (
