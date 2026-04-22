@@ -68,8 +68,8 @@ CREATE TABLE servidor (
 );
 
 INSERT INTO servidor (endereco_mac, status_servidor, fk_unidade) VALUES
-('00:1A:2B:3C:4D:01', 'Ativo', 1),
-('00:1A:2B:3C:4D:02', 'Ativo', 1),
+('bc:cd:99:c2:86:34', 'Ativo', 1),
+('FA:28:9D:A9:BC:0B', 'Ativo', 1),
 ('00:1A:2B:3C:4D:03', 'Manutenção', 2),
 ('00:1A:2B:3C:4D:04', 'Ativo', 2),
 ('00:1A:2B:3C:4D:05', 'Inativo', 3),
@@ -94,6 +94,7 @@ INSERT INTO componente (nome, tipo, unidade_medida, biblioteca, parametro) VALUE
 ('Trocas de contexto', 'CPU', 'Quantidade', 'psutil', 'cpu_ctx_switches'),
 ('Memória Total', 'Memoria', 'Bytes', 'psutil', 'virtual_memory_total'),
 ('Memória Disponível', 'Memoria', 'Bytes', 'psutil', 'virtual_memory_available'),
+('Memória Usada (%)', 'Memoria', 'Percentual', 'psutil', 'virtual_memory_used_percent'),
 ('Leitura de Disco', 'Disco', 'Bytes', 'psutil', 'disk_read_bytes'),
 ('Escrita de Disco', 'Disco', 'Bytes', 'psutil', 'disk_write_bytes'),
 ('Uso de Disco (%)', 'Disco', 'Percentual', 'psutil', 'disk_percent'),
@@ -127,8 +128,8 @@ CREATE TABLE componente_servidor (
 
 INSERT INTO componente_servidor (id_servidor, id_componente, limite_componente, exibir) VALUES
 (1, 1, 80, TRUE),
-(1, 5, 80, TRUE),
-(1, 8, 85, TRUE);
+(1, 6, 80, TRUE),
+(1, 9, 85, TRUE);
 
 CREATE TABLE registro (
 	id_registro INT,
@@ -149,12 +150,12 @@ INSERT INTO registro (id_registro, id_componente, id_servidor, valor, data_Hora)
 (1, 1, 1, 45.5, '2026-04-01 10:00:00'),
 (2, 1, 1, 67.2, '2026-04-01 10:05:00'),
 (3, 1, 1, 82.1, '2026-04-01 10:10:00'),
-(4, 5, 1, 32, '2026-04-01 10:00:00'),
-(5, 5, 1, 28.4, '2026-04-01 10:05:00'),
-(6, 5, 1, 25.7, '2026-04-01 10:10:00'),
-(7, 8, 1, 60.3, '2026-04-01 10:00:00'),
-(8, 8, 1, 75.8, '2026-04-01 10:05:00'),
-(9, 8, 1, 88.4, '2026-04-01 10:10:00');
+(4, 6, 1, 32, '2026-04-01 10:00:00'),
+(5, 6, 1, 28.4, '2026-04-01 10:05:00'),
+(6, 6, 1, 25.7, '2026-04-01 10:10:00'),
+(7, 9, 1, 60.3, '2026-04-01 10:00:00'),
+(8, 9, 1, 75.8, '2026-04-01 10:05:00'),
+(9, 9, 1, 88.4, '2026-04-01 10:10:00');
 
 show tables;
 
