@@ -57,6 +57,7 @@ INSERT INTO usuario (fk_unidade, nome, email, senha, telefone, funcao, identific
 
 CREATE TABLE servidor (
 	id_servidor INT PRIMARY KEY AUTO_INCREMENT,
+    alias VARCHAR(45) NOT NULL,
     endereco_mac CHAR(17) NOT NULL UNIQUE,
     status_servidor VARCHAR(45) NOT NULL,
     CONSTRAINT status_servidor 
@@ -67,17 +68,17 @@ CREATE TABLE servidor (
 			REFERENCES unidade(id_unidade)
 );
 
-INSERT INTO servidor (endereco_mac, status_servidor, fk_unidade) VALUES
-('bc:cd:99:c2:86:34', 'Ativo', 1),
-('FA:28:9D:A9:BC:0B', 'Ativo', 1),
-('00:1A:2B:3C:4D:03', 'Manutenção', 2),
-('00:1A:2B:3C:4D:04', 'Ativo', 2),
-('00:1A:2B:3C:4D:05', 'Inativo', 3),
-('00:1A:2B:3C:4D:06', 'Ativo', 3),
-('00:1A:2B:3C:4D:07', 'Manutenção', 4),
-('00:1A:2B:3C:4D:08', 'Ativo', 4),
-('00:1A:2B:3C:4D:09', 'Inativo', 5),
-('00:1A:2B:3C:4D:10', 'Ativo', 5);
+INSERT INTO servidor (alias,endereco_mac, status_servidor, fk_unidade) VALUES
+("a",'bc:cd:99:c2:86:34', 'Ativo', 1),
+("a",'FA:28:9D:A9:BC:0B', 'Ativo', 1),
+("a",'00:1A:2B:3C:4D:03', 'Manutenção', 2),
+("a",'00:1A:2B:3C:4D:04', 'Ativo', 2),
+("a",'00:1A:2B:3C:4D:05', 'Inativo', 3),
+("a",'00:1A:2B:3C:4D:06', 'Ativo', 3),
+("a",'00:1A:2B:3C:4D:07', 'Manutenção', 4),
+("a",'00:1A:2B:3C:4D:08', 'Ativo', 4),
+("a",'00:1A:2B:3C:4D:09', 'Inativo', 5),
+("a",'00:1A:2B:3C:4D:10', 'Ativo', 5);
 
 CREATE TABLE componente (
 	id_componente INT PRIMARY KEY AUTO_INCREMENT,
