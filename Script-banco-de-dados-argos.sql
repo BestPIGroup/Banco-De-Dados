@@ -42,14 +42,14 @@ CREATE TABLE usuario (
 
 -- Responsáveis (sem fk_responsavel)
 INSERT INTO usuario (id_usuario,fk_unidade, nome, email, senha, telefone, funcao, identificador, fk_responsavel) VALUES
-(default, 1,'Carlos Silva', 'carlos.silva@argos.com', 'senha123', '11999990001', 'Administrador', 9001, NULL),
-(default,2, 'Fernanda Souza', 'fernanda.souza@argos.com', 'senha123', '11999990002', 'Administrador', 9002, NULL),
-(default,3, 'Ricardo Alves', 'ricardo.alves@argos.com', 'senha123', '11999990003', 'Administrador', 9003, NULL);
+(default, 1,'Julia Sanches', 'julia.sanches@argos.com', 'senha123', '11999990001', 'Administrador', 9001, NULL),
+(default, 2, 'Fernanda Souza', 'fernanda.souza@argos.com', 'senha123', '11999990002', 'Administrador', 9002, NULL),
+(default, 3, 'Ricardo Alves', 'ricardo.alves@argos.com', 'senha123', '11999990003', 'Administrador', 9003, NULL);
 
 -- Técnicos subordinados
 INSERT INTO usuario (fk_unidade, nome, email, senha, telefone, funcao, identificador, fk_responsavel) VALUES
-(1, 'João Pereira', 'joao.pereira@argos.com', 'senha123', '11988880001', 'Técnico', 1, 1),
-(1, 'Marcos Lima', 'marcos.lima@argos.com', 'senha123', '11988880002', 'Técnico', 2, 1),
+(1, 'Marcio Lima', 'marcio.lima@argos.com', 'senha123', '11988880001', 'Técnico', 1, 1),
+(1, 'Marcos Pereira', 'marcos.pereira@argos.com', 'senha123', '11988880002', 'Técnico', 2, 1),
 (2, 'Ana Costa', 'ana.costa@argos.com', 'senha123', '11988880003', 'Técnico', 3, 2),
 (3, 'Paula Mendes', 'paula.mendes@argos.com', 'senha123', '11988880004', 'Técnico', 4, 3),
 (4, 'Lucas Rocha', 'lucas.rocha@argos.com', 'senha123', '11988880005', 'Técnico', 5, 1),
@@ -70,7 +70,8 @@ CREATE TABLE servidor (
 
 INSERT INTO servidor (alias,endereco_mac, status_servidor, fk_unidade) VALUES
 ("a",'bc:cd:99:c2:86:34', 'Ativo', 1),
-("a",'FA:28:9D:A9:BC:0B', 'Ativo', 1),
+("f",'fa:28:9d:a9:bc:0b', 'Ativo', 1),
+("m",'4c:44:5b:f2:74:61', 'Ativo', 1),
 ("a",'00:1A:2B:3C:4D:03', 'Manutenção', 2),
 ("a",'00:1A:2B:3C:4D:04', 'Ativo', 2),
 ("a",'00:1A:2B:3C:4D:05', 'Inativo', 3),
@@ -130,7 +131,13 @@ CREATE TABLE componente_servidor (
 INSERT INTO componente_servidor (id_servidor, id_componente, limite_componente, exibir) VALUES
 (1, 1, 80, TRUE),
 (1, 6, 80, TRUE),
-(1, 9, 85, TRUE);
+(1, 9, 85, TRUE),
+(2, 1, 80, TRUE),
+(2, 6, 80, TRUE),
+(2, 9, 85, TRUE),
+(3, 1, 80, TRUE),
+(3, 6, 80, TRUE),
+(3, 9, 85, TRUE);
 
 CREATE TABLE registro (
 	id_registro INT,
@@ -164,5 +171,7 @@ select * from componente;
 select * from componente_servidor;
 select * from registro;
 select * from servidor;
+
 select * from unidade;
 select * from usuario;
+
