@@ -42,18 +42,18 @@ CREATE TABLE usuario (
 
 -- Responsáveis (sem fk_responsavel)
 INSERT INTO usuario (id_usuario,fk_unidade, nome, email, senha, telefone, funcao, identificador, fk_responsavel) VALUES
-(default, 1,'Julia Sanches', 'julia.sanches@argos.com', 'senha123', '11999990001', 'Administrador', 9001, NULL),
-(default, 2, 'Fernanda Souza', 'fernanda.souza@argos.com', 'senha123', '11999990002', 'Administrador', 9002, NULL),
-(default, 3, 'Ricardo Alves', 'ricardo.alves@argos.com', 'senha123', '11999990003', 'Administrador', 9003, NULL);
+(default, 1,'Julia Sanches', 'julia.sanches@argos.com', 'senha123', '11999990001', 'Gestor', 9001, NULL),
+(default, 2, 'Fernanda Souza', 'fernanda.souza@argos.com', 'senha123', '11999990002', 'Gestor', 9002, NULL),
+(default, 3, 'Ricardo Alves', 'ricardo.alves@argos.com', 'senha123', '11999990003', 'Gestor', 9003, NULL);
 
--- Técnicos subordinados
+-- Analistas subordinados
 INSERT INTO usuario (fk_unidade, nome, email, senha, telefone, funcao, identificador, fk_responsavel) VALUES
-(1, 'Marcio Lima', 'marcio.lima@argos.com', 'senha123', '11988880001', 'Técnico', 1, 1),
-(1, 'Marcos Pereira', 'marcos.pereira@argos.com', 'senha123', '11988880002', 'Técnico', 2, 1),
-(2, 'Ana Costa', 'ana.costa@argos.com', 'senha123', '11988880003', 'Técnico', 3, 2),
-(3, 'Paula Mendes', 'paula.mendes@argos.com', 'senha123', '11988880004', 'Técnico', 4, 3),
-(4, 'Lucas Rocha', 'lucas.rocha@argos.com', 'senha123', '11988880005', 'Técnico', 5, 1),
-(5, 'Bruno Ferreira', 'bruno.ferreira@argos.com', 'senha123', '11988880006', 'Técnico', 6, 2);
+(1, 'Marcio Lima', 'marcio.lima@argos.com', 'senha123', '11988880001', 'Analista', 1, 1),
+(1, 'Marcos Pereira', 'marcos.pereira@argos.com', 'senha123', '11988880002', 'Analista', 2, 1),
+(2, 'Ana Costa', 'ana.costa@argos.com', 'senha123', '11988880003', 'Analista', 3, 2),
+(3, 'Paula Mendes', 'paula.mendes@argos.com', 'senha123', '11988880004', 'Analista', 4, 3),
+(4, 'Lucas Rocha', 'lucas.rocha@argos.com', 'senha123', '11988880005', 'Analista', 5, 1),
+(5, 'Bruno Ferreira', 'bruno.ferreira@argos.com', 'senha123', '11988880006', 'Analista', 6, 2);
 
 CREATE TABLE servidor (
 	id_servidor INT PRIMARY KEY AUTO_INCREMENT,
