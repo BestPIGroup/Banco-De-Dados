@@ -22,7 +22,7 @@ INSERT INTO unidade (cod_unidade, cep, cidade, rua, bairro, estado) VALUES
 (5, '05010000', 'São Paulo', 'Rua Clélia', 'Lapa', 'SP');
 
 CREATE TABLE usuario (
-	id_usuario INT NOT NULL AUTO_INCREMENT,
+	id_usuario INT UNIQUE NOT NULL AUTO_INCREMENT,
     fk_unidade INT NOT NULL,
     CONSTRAINT fk_unidade_usuario
 		FOREIGN KEY (fk_unidade)
@@ -42,18 +42,18 @@ CREATE TABLE usuario (
 
 -- Responsáveis (sem fk_responsavel)
 INSERT INTO usuario (id_usuario,fk_unidade, nome, email, senha, telefone, funcao, identificador, fk_responsavel) VALUES
-(default, 1,'Julia Sanches', 'julia.sanches@argos.com', 'senha123', '11999990001', 'Administrador', 9001, NULL),
-(default, 2, 'Fernanda Souza', 'fernanda.souza@argos.com', 'senha123', '11999990002', 'Administrador', 9002, NULL),
-(default, 3, 'Ricardo Alves', 'ricardo.alves@argos.com', 'senha123', '11999990003', 'Administrador', 9003, NULL);
+(default, 1,'Julia Sanches', 'julia.sanches@argos.com', 'senha123', '11999990001', 'Gestor', 9001, NULL),
+(default, 2, 'Fernanda Souza', 'fernanda.souza@argos.com', 'senha123', '11999990002', 'Gestor', 9002, NULL),
+(default, 3, 'Ricardo Alves', 'ricardo.alves@argos.com', 'senha123', '11999990003', 'Gestor', 9003, NULL);
 
--- Técnicos subordinados
+-- Analistas subordinados
 INSERT INTO usuario (fk_unidade, nome, email, senha, telefone, funcao, identificador, fk_responsavel) VALUES
-(1, 'Marcio Lima', 'marcio.lima@argos.com', 'senha123', '11988880001', 'Técnico', 1, 1),
-(1, 'Marcos Pereira', 'marcos.pereira@argos.com', 'senha123', '11988880002', 'Técnico', 2, 1),
-(2, 'Ana Costa', 'ana.costa@argos.com', 'senha123', '11988880003', 'Técnico', 3, 2),
-(3, 'Paula Mendes', 'paula.mendes@argos.com', 'senha123', '11988880004', 'Técnico', 4, 3),
-(4, 'Lucas Rocha', 'lucas.rocha@argos.com', 'senha123', '11988880005', 'Técnico', 5, 1),
-(5, 'Bruno Ferreira', 'bruno.ferreira@argos.com', 'senha123', '11988880006', 'Técnico', 6, 2);
+(1, 'Marcio Lima', 'marcio.lima@argos.com', 'senha123', '11988880001', 'Analista', 1, 1),
+(1, 'Marcos Pereira', 'marcos.pereira@argos.com', 'senha123', '11988880002', 'Analista', 2, 1),
+(2, 'Ana Costa', 'ana.costa@argos.com', 'senha123', '11988880003', 'Analista', 3, 2),
+(3, 'Paula Mendes', 'paula.mendes@argos.com', 'senha123', '11988880004', 'Analista', 4, 3),
+(4, 'Lucas Rocha', 'lucas.rocha@argos.com', 'senha123', '11988880005', 'Analista', 5, 1),
+(5, 'Bruno Ferreira', 'bruno.ferreira@argos.com', 'senha123', '11988880006', 'Analista', 6, 2);
 
 CREATE TABLE servidor (
 	id_servidor INT PRIMARY KEY AUTO_INCREMENT,
@@ -82,7 +82,7 @@ INSERT INTO servidor (alias,endereco_mac, status_servidor, fk_unidade) VALUES
 ("a",'00:1A:2B:3C:4D:10', 'Ativo', 5);
 
 CREATE TABLE componente (
-	id_componente INT PRIMARY KEY AUTO_INCREMENT,
+	id_componente INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR (45) NOT NULL,
     tipo VARCHAR(45) NOT NULL,
     unidade_medida VARCHAR(45) NOT NULL,
@@ -142,13 +142,10 @@ INSERT INTO componente_servidor (id_servidor, id_componente, limite_componente, 
 CREATE TABLE registro (
 	id_registro INT,
     id_componente INT NOT NULL,
-    CONSTRAINT id_componente_servidor
-		FOREIGN KEY (id_componente) 
-			REFERENCES componente_servidor(id_componente),
 	id_servidor INT NOT NULL,
-    CONSTRAINT id_servidor_componente
-		FOREIGN KEY (id_servidor) 
-			REFERENCES componente_servidor(id_servidor),
+CONSTRAINT fk_registro_componente_servidor
+        FOREIGN KEY (id_servidor, id_componente) 
+        REFERENCES componente_servidor (id_servidor, id_componente),
     valor FLOAT NOT NULL,
     data_Hora DATETIME NOT NULL,
 	PRIMARY KEY (id_registro, id_componente, id_servidor)
