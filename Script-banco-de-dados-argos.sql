@@ -69,17 +69,20 @@ CREATE TABLE servidor (
 );
 
 INSERT INTO servidor (alias,endereco_mac, status_servidor, fk_unidade) VALUES
-("a",'bc:cd:99:c2:86:34', 'Ativo', 1),
-("f",'fa:28:9d:a9:bc:0b', 'Ativo', 1),
-("m",'4c:44:5b:f2:74:61', 'Ativo', 1),
-("a",'00:1A:2B:3C:4D:03', 'Manutenção', 2),
-("a",'00:1A:2B:3C:4D:04', 'Ativo', 2),
-("a",'00:1A:2B:3C:4D:05', 'Inativo', 3),
-("a",'00:1A:2B:3C:4D:06', 'Ativo', 3),
-("a",'00:1A:2B:3C:4D:07', 'Manutenção', 4),
-("a",'00:1A:2B:3C:4D:08', 'Ativo', 4),
-("a",'00:1A:2B:3C:4D:09', 'Inativo', 5),
-("a",'00:1A:2B:3C:4D:10', 'Ativo', 5);
+('miyuki','bc:cd:99:c2:86:34', 'Ativo', 1),
+('flavia','f4:28:9d:a9:bc:0b', 'Ativo', 1),
+('murilo','4c:44:5b:f2:74:61', 'Ativo', 1),
+('lua', '91:61:8a:0c:85', 'Ativo', 1),
+('victor', '00:d7:6d:20:c0:88', 'Ativo', 1),
+('kaio', 'a0:85:27:18:03:0d', 'Ativo', 1),
+('a','00:1A:2B:3C:4D:03', 'Manutenção', 2),
+('a','00:1A:2B:3C:4D:04', 'Ativo', 2),
+('a','00:1A:2B:3C:4D:05', 'Inativo', 3),
+('a','00:1A:2B:3C:4D:06', 'Ativo', 3),
+('a','00:1A:2B:3C:4D:07', 'Manutenção', 4),
+('a','00:1A:2B:3C:4D:08', 'Ativo', 4),
+('a','00:1A:2B:3C:4D:09', 'Inativo', 5),
+('a','00:1A:2B:3C:4D:10', 'Ativo', 5);
 
 CREATE TABLE componente (
 	id_componente INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
@@ -94,9 +97,9 @@ INSERT INTO componente (nome, tipo, unidade_medida, biblioteca, parametro) VALUE
 ('Uso de CPU (%)', 'CPU', 'Percentual', 'psutil', 'cpu_percent'),
 ('Tempo de CPU (user)', 'CPU', 'Segundos', 'psutil', 'cpu_times_user'),
 ('Trocas de contexto', 'CPU', 'Quantidade', 'psutil', 'cpu_ctx_switches'),
-('Memória Total', 'Memoria', 'Bytes', 'psutil', 'virtual_memory_total'),
-('Memória Disponível', 'Memoria', 'Bytes', 'psutil', 'virtual_memory_available'),
-('Memória Usada (%)', 'Memoria', 'Percentual', 'psutil', 'virtual_memory_used_percent'),
+('Memoria Total', 'Memoria', 'Bytes', 'psutil', 'virtual_memory_total'),
+('Memoria Disponivel', 'Memoria', 'Bytes', 'psutil', 'virtual_memory_available'),
+('Memoria Usada (%)', 'Memoria', 'Percentual', 'psutil', 'virtual_memory_used_percent'),
 ('Leitura de Disco', 'Disco', 'Bytes', 'psutil', 'disk_read_bytes'),
 ('Escrita de Disco', 'Disco', 'Bytes', 'psutil', 'disk_write_bytes'),
 ('Uso de Disco (%)', 'Disco', 'Percentual', 'psutil', 'disk_percent'),
@@ -105,14 +108,14 @@ INSERT INTO componente (nome, tipo, unidade_medida, biblioteca, parametro) VALUE
 ('Pacotes Enviados', 'Rede', 'Quantidade', 'psutil', 'net_packets_sent'),
 ('Pacotes Recebidos', 'Rede', 'Quantidade', 'psutil', 'net_packets_recv'),
 ('Erros de Entrada', 'Rede', 'Quantidade', 'psutil', 'net_errin'),
-('Erros de Saída', 'Rede', 'Quantidade', 'psutil', 'net_errout'),
+('Erros de Saida', 'Rede', 'Quantidade', 'psutil', 'net_errout'),
 ('Pacotes Perdidos Entrada', 'Rede', 'Quantidade', 'psutil', 'net_dropin'),
-('Pacotes Perdidos Saída', 'Rede', 'Quantidade', 'psutil', 'net_dropout'),
+('Pacotes Perdidos Saida', 'Rede', 'Quantidade', 'psutil', 'net_dropout'),
 ('Total de Processos', 'Processo', 'Quantidade', 'psutil', 'total_processos'),
 ('PID com maior uso de CPU', 'Processo', 'ID', 'psutil', 'processo_pid_max_cpu'),
 ('Nome do processo (maior CPU)', 'Processo', 'Texto', 'psutil', 'processo_nome_max_cpu'),
 ('Uso CPU processo (%)', 'Processo', 'Percentual', 'psutil', 'processo_cpu_percent_max_cpu'),
-('Usuários Logados', 'Sistema', 'Quantidade', 'psutil', 'usuarios_logados');
+('Usuarios Logados', 'Sistema', 'Quantidade', 'psutil', 'usuarios_logados');
 
 CREATE TABLE componente_servidor (
 	id_servidor INT NOT NULL,
@@ -137,7 +140,16 @@ INSERT INTO componente_servidor (id_servidor, id_componente, limite_componente, 
 (2, 9, 85, TRUE),
 (3, 1, 80, TRUE),
 (3, 6, 80, TRUE),
-(3, 9, 85, TRUE);
+(3, 9, 85, TRUE),
+(4, 1, 80, TRUE),
+(4, 6, 80, TRUE),
+(4, 9, 85, TRUE),
+(5, 1, 80, TRUE),
+(5, 6, 80, TRUE),
+(5, 9, 85, TRUE),
+(6, 1, 80, TRUE),
+(6, 6, 80, TRUE),
+(6, 9, 85, TRUE);
 
 CREATE TABLE registro (
 	id_registro INT,
