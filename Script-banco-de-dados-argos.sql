@@ -1,7 +1,7 @@
 -- ARGOS GRUPO 10
 -- drop database projeto_Argos;
 
-CREATE DATABASE projeto_Argos;
+CREATE DATABASE IF NOT EXISTS projeto_Argos;
 USE projeto_Argos;
 
 CREATE TABLE unidade (
@@ -13,7 +13,7 @@ CREATE TABLE unidade (
     bairro VARCHAR(45) NOT NULL,
     estado VARCHAR(45) NOT NULL
 );
-select * from unidade;
+
 INSERT INTO unidade (cod_unidade, cep, cidade, rua, bairro, estado) VALUES
 (1, '01001000', 'São Paulo', 'Praça da Sé', 'Sé', 'SP'),
 (2, '01311000', 'São Paulo', 'Av. Paulista', 'Bela Vista', 'SP'),
@@ -32,10 +32,10 @@ CREATE TABLE usuario (
     senha VARCHAR(60) NOT NULL,
     telefone VARCHAR(15) NOT NULL,
     funcao VARCHAR(45) NOT NULL,
-    identificador INT NOT NULL UNIQUE,
+    identificador VARCHAR(10) NOT NULL UNIQUE,
     fk_responsavel INT,
     CONSTRAINT fk_responsavel_usuario
-		FOREIGN KEY (fk_responsavel) 
+		FOREIGN KEY (fk_responsavel)
 			REFERENCES usuario(id_usuario),
 	PRIMARY KEY (id_usuario, fk_unidade)
 );
@@ -56,30 +56,33 @@ INSERT INTO usuario (fk_unidade, nome, email, senha, telefone, funcao, identific
 (5, 'Bruno Ferreira', 'bruno.ferreira@argos.com', 'senha123', '11988880006', 'Analista', 6, 2);
 
 CREATE TABLE servidor (
-	id_servidor INT PRIMARY KEY AUTO_INCREMENT,
+    id_servidor INT PRIMARY KEY AUTO_INCREMENT,
     alias VARCHAR(45) NOT NULL,
     endereco_mac CHAR(17) NOT NULL UNIQUE,
     status_servidor VARCHAR(45) NOT NULL,
-    CONSTRAINT status_servidor 
-		CHECK(status_servidor IN ('Manutenção', 'Inativo', 'Ativo')),
+    CONSTRAINT status_servidor_check
+        CHECK(status_servidor IN ('Manutenção', 'Inativo', 'Ativo')),
     fk_unidade INT,
     CONSTRAINT fk_unidade_servidor
-		FOREIGN KEY (fk_unidade) 
-			REFERENCES unidade(id_unidade)
+        FOREIGN KEY (fk_unidade)
+            REFERENCES unidade(id_unidade)
 );
 
 INSERT INTO servidor (alias,endereco_mac, status_servidor, fk_unidade) VALUES
-("a",'bc:cd:99:c2:86:34', 'Ativo', 1),
-("f",'fa:28:9d:a9:bc:0b', 'Ativo', 1),
-("m",'4c:44:5b:f2:74:61', 'Ativo', 1),
-("a",'00:1A:2B:3C:4D:03', 'Manutenção', 2),
-("a",'00:1A:2B:3C:4D:04', 'Ativo', 2),
-("a",'00:1A:2B:3C:4D:05', 'Inativo', 3),
-("a",'00:1A:2B:3C:4D:06', 'Ativo', 3),
-("a",'00:1A:2B:3C:4D:07', 'Manutenção', 4),
-("a",'00:1A:2B:3C:4D:08', 'Ativo', 4),
-("a",'00:1A:2B:3C:4D:09', 'Inativo', 5),
-("a",'00:1A:2B:3C:4D:10', 'Ativo', 5);
+('miyuki','bc:cd:99:c2:86:34', 'Ativo', 1),
+('flavia','f4:28:9d:a9:bc:0b', 'Ativo', 1),
+('murilo','4c:44:5b:f2:74:61', 'Ativo', 1),
+('lua', 'ec:91:61:8b:20:4b', 'Ativo', 1),
+('victor', '00:d7:6d:20:c0:88', 'Ativo', 1),
+('kaio', 'a0:85:27:18:03:0d', 'Ativo', 1),
+('1','00:1A:2B:3C:4D:03', 'Manutenção', 2),
+('2','00:1A:2B:3C:4D:04', 'Ativo', 2),
+('1','00:1A:2B:3C:4D:05', 'Inativo', 3),
+('2','00:1A:2B:3C:4D:06', 'Ativo', 3),
+('1','00:1A:2B:3C:4D:07', 'Manutenção', 4),
+('2','00:1A:2B:3C:4D:08', 'Ativo', 4),
+('1','00:1A:2B:3C:4D:09', 'Inativo', 5),
+('2','00:1A:2B:3C:4D:10', 'Ativo', 5);
 
 CREATE TABLE componente (
 	id_componente INT UNIQUE PRIMARY KEY AUTO_INCREMENT,
@@ -91,84 +94,117 @@ CREATE TABLE componente (
 );
 
 INSERT INTO componente (nome, tipo, unidade_medida, biblioteca, parametro) VALUES
+-- 1
 ('Uso de CPU (%)', 'CPU', 'Percentual', 'psutil', 'cpu_percent'),
+-- 2
 ('Tempo de CPU (user)', 'CPU', 'Segundos', 'psutil', 'cpu_times_user'),
+-- 3
 ('Trocas de contexto', 'CPU', 'Quantidade', 'psutil', 'cpu_ctx_switches'),
-('Memória Total', 'Memoria', 'Bytes', 'psutil', 'virtual_memory_total'),
-('Memória Disponível', 'Memoria', 'Bytes', 'psutil', 'virtual_memory_available'),
-('Memória Usada (%)', 'Memoria', 'Percentual', 'psutil', 'virtual_memory_used_percent'),
-('Leitura de Disco', 'Disco', 'Bytes', 'psutil', 'disk_read_bytes'),
-('Escrita de Disco', 'Disco', 'Bytes', 'psutil', 'disk_write_bytes'),
+-- 4
+('Memoria Total', 'Memoria', 'Bytes', 'psutil', 'virtual_memory_total'),
+-- 5
+('Memoria Disponivel', 'Memoria', 'Bytes', 'psutil', 'virtual_memory_available'),
+-- 6
+('Memoria Usada (%)', 'Memoria', 'Percentual', 'psutil', 'virtual_memory_used_percent'),
+-- 7
+('Leitura em Disco (MB/s)', 'Disco', 'Megabytes', 'psutil', 'disk_read_bytes'),
+-- 8
+('Escrita em Disco (MB/s)', 'Disco', 'Megabytes', 'psutil', 'disk_write_bytes'),
+-- 9
 ('Uso de Disco (%)', 'Disco', 'Percentual', 'psutil', 'disk_percent'),
+-- 10
 ('Bytes Enviados', 'Rede', 'Bytes', 'psutil', 'net_bytes_sent'),
+-- 11
 ('Bytes Recebidos', 'Rede', 'Bytes', 'psutil', 'net_bytes_recv'),
+-- 12
 ('Pacotes Enviados', 'Rede', 'Quantidade', 'psutil', 'net_packets_sent'),
+-- 13
 ('Pacotes Recebidos', 'Rede', 'Quantidade', 'psutil', 'net_packets_recv'),
+-- 14
 ('Erros de Entrada', 'Rede', 'Quantidade', 'psutil', 'net_errin'),
-('Erros de Saída', 'Rede', 'Quantidade', 'psutil', 'net_errout'),
+-- 15
+('Erros de Saida', 'Rede', 'Quantidade', 'psutil', 'net_errout'),
+-- 16
 ('Pacotes Perdidos Entrada', 'Rede', 'Quantidade', 'psutil', 'net_dropin'),
-('Pacotes Perdidos Saída', 'Rede', 'Quantidade', 'psutil', 'net_dropout'),
+-- 17
+('Pacotes Perdidos Saida', 'Rede', 'Quantidade', 'psutil', 'net_dropout'),
+-- 18
 ('Total de Processos', 'Processo', 'Quantidade', 'psutil', 'total_processos'),
+-- 19
 ('PID com maior uso de CPU', 'Processo', 'ID', 'psutil', 'processo_pid_max_cpu'),
+-- 20
 ('Nome do processo (maior CPU)', 'Processo', 'Texto', 'psutil', 'processo_nome_max_cpu'),
+-- 21
 ('Uso CPU processo (%)', 'Processo', 'Percentual', 'psutil', 'processo_cpu_percent_max_cpu'),
-('Usuários Logados', 'Sistema', 'Quantidade', 'psutil', 'usuarios_logados');
+-- 22
+('Usuarios Logados', 'Sistema', 'Quantidade', 'psutil', 'usuarios_logados'),
+-- 23
+('Arquivos Abertos', 'Arquivos', 'Quantidade', 'psutil', 'arquivos_abertos');
+
 
 CREATE TABLE componente_servidor (
-	id_servidor INT NOT NULL,
-    CONSTRAINT id_servidor
-		FOREIGN KEY (id_servidor) 
-			REFERENCES servidor(id_servidor),
+    id_servidor INT NOT NULL,
     id_componente INT NOT NULL,
-    CONSTRAINT id_componente
-		FOREIGN KEY (id_componente) 
-			REFERENCES componente(id_componente),
     limite_componente INT NOT NULL,
     exibir BOOLEAN,
-    PRIMARY KEY (id_servidor, id_componente)
+    PRIMARY KEY (id_servidor, id_componente),
+    CONSTRAINT fk_comp_servidor_servidor
+        FOREIGN KEY (id_servidor)
+            REFERENCES servidor(id_servidor),
+    CONSTRAINT fk_comp_servidor_componente
+        FOREIGN KEY (id_componente)
+            REFERENCES componente(id_componente)
 );
 
 INSERT INTO componente_servidor (id_servidor, id_componente, limite_componente, exibir) VALUES
 (1, 1, 80, TRUE),
 (1, 6, 80, TRUE),
+(1, 7, 100, TRUE),
+(1, 8, 100, TRUE),
 (1, 9, 85, TRUE),
+(1, 23, 3000, TRUE),
+(1, 3, 100, TRUE),
+
 (2, 1, 80, TRUE),
 (2, 6, 80, TRUE),
 (2, 9, 85, TRUE),
 (3, 1, 80, TRUE),
 (3, 6, 80, TRUE),
-(3, 9, 85, TRUE);
-
-CREATE TABLE registro (
-	id_registro INT,
-    id_componente INT NOT NULL,
-	id_servidor INT NOT NULL,
-CONSTRAINT fk_registro_componente_servidor
-        FOREIGN KEY (id_servidor, id_componente) 
-        REFERENCES componente_servidor (id_servidor, id_componente),
-    valor FLOAT NOT NULL,
-    data_Hora DATETIME NOT NULL,
-	PRIMARY KEY (id_registro, id_componente, id_servidor)
-);
-
-INSERT INTO registro (id_registro, id_componente, id_servidor, valor, data_Hora) VALUES
-(1, 1, 1, 45.5, '2026-04-01 10:00:00'),
-(2, 1, 1, 67.2, '2026-04-01 10:05:00'),
-(3, 1, 1, 82.1, '2026-04-01 10:10:00'),
-(4, 6, 1, 32, '2026-04-01 10:00:00'),
-(5, 6, 1, 28.4, '2026-04-01 10:05:00'),
-(6, 6, 1, 25.7, '2026-04-01 10:10:00'),
-(7, 9, 1, 60.3, '2026-04-01 10:00:00'),
-(8, 9, 1, 75.8, '2026-04-01 10:05:00'),
-(9, 9, 1, 88.4, '2026-04-01 10:10:00');
+(3, 9, 85, TRUE),
+(4, 1, 80, TRUE),
+(4, 6, 80, TRUE),
+(4, 9, 85, TRUE),
+(5, 1, 80, TRUE),
+(5, 6, 80, TRUE),
+(5, 9, 85, TRUE),
+(6, 1, 80, TRUE),
+(6, 6, 80, TRUE),
+(6, 9, 85, TRUE);
 
 show tables;
 
 select * from componente;
 select * from componente_servidor;
-select * from registro;
+desc componente_servidor;
+desc servidor;
 select * from servidor;
 
 select * from unidade;
 select * from usuario;
 
+-- INSERT INTO componente_servidor((SELECT id_servidor FROM servidor WHERE endereco_mac = 'bc:cd:99:c2:86:34'),id_componente, limite_componente, exibir) VALUES
+--                                 ('${id_servidor}', 1, 85, 'TRUE'),
+--                                 ('${id_servidor}', 3, 85, 'TRUE'),
+--                                 ('${id_servidor}', 6, 80, 'TRUE'),
+--                                 ('${id_servidor}', 7, 100, 'TRUE'),
+--                                 ('${id_servidor}', 8, 100, 'TRUE'),
+--                                 ('${id_servidor}', 9, 80, 'TRUE'),
+--                                 ('${id_servidor}', 10, 85, 'TRUE'),
+--                                 ('${id_servidor}', 11, 85, 'TRUE'),
+--                                 ('${id_servidor}', 12, 85, 'TRUE'),
+--                                 ('${id_servidor}', 13, 85, 'TRUE'),
+--                                 ('${id_servidor}', 18, 85, 'TRUE'),
+--                                 ('${id_servidor}', 20, 85, 'TRUE'),
+--                                 ('${id_servidor}', 21, 85, 'TRUE'),
+--                                 ('${id_servidor}', 22, 85, 'TRUE'),
+--                                 ('${id_servidor}', 23, 3000, 'TRUE');
