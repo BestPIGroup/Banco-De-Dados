@@ -94,28 +94,51 @@ CREATE TABLE componente (
 );
 
 INSERT INTO componente (nome, tipo, unidade_medida, biblioteca, parametro) VALUES
+-- 1
 ('Uso de CPU (%)', 'CPU', 'Percentual', 'psutil', 'cpu_percent'),
+-- 2
 ('Tempo de CPU (user)', 'CPU', 'Segundos', 'psutil', 'cpu_times_user'),
+-- 3
 ('Trocas de contexto', 'CPU', 'Quantidade', 'psutil', 'cpu_ctx_switches'),
+-- 4
 ('Memoria Total', 'Memoria', 'Bytes', 'psutil', 'virtual_memory_total'),
+-- 5
 ('Memoria Disponivel', 'Memoria', 'Bytes', 'psutil', 'virtual_memory_available'),
+-- 6
 ('Memoria Usada (%)', 'Memoria', 'Percentual', 'psutil', 'virtual_memory_used_percent'),
-('Leitura de Disco (MB/s)', 'Disco', 'Megabytes', 'psutil', 'disk_read_bytes'),
-('Escrita de Disco (MB/s)', 'Disco', 'Megabytes', 'psutil', 'disk_write_bytes'),
+-- 7
+('Leitura em Disco (MB/s)', 'Disco', 'Megabytes', 'psutil', 'disk_read_bytes'),
+-- 8
+('Escrita em Disco (MB/s)', 'Disco', 'Megabytes', 'psutil', 'disk_write_bytes'),
+-- 9
 ('Uso de Disco (%)', 'Disco', 'Percentual', 'psutil', 'disk_percent'),
+-- 10
 ('Bytes Enviados', 'Rede', 'Bytes', 'psutil', 'net_bytes_sent'),
+-- 11
 ('Bytes Recebidos', 'Rede', 'Bytes', 'psutil', 'net_bytes_recv'),
+-- 12
 ('Pacotes Enviados', 'Rede', 'Quantidade', 'psutil', 'net_packets_sent'),
+-- 13
 ('Pacotes Recebidos', 'Rede', 'Quantidade', 'psutil', 'net_packets_recv'),
+-- 14
 ('Erros de Entrada', 'Rede', 'Quantidade', 'psutil', 'net_errin'),
+-- 15
 ('Erros de Saida', 'Rede', 'Quantidade', 'psutil', 'net_errout'),
+-- 16
 ('Pacotes Perdidos Entrada', 'Rede', 'Quantidade', 'psutil', 'net_dropin'),
+-- 17
 ('Pacotes Perdidos Saida', 'Rede', 'Quantidade', 'psutil', 'net_dropout'),
+-- 18
 ('Total de Processos', 'Processo', 'Quantidade', 'psutil', 'total_processos'),
+-- 19
 ('PID com maior uso de CPU', 'Processo', 'ID', 'psutil', 'processo_pid_max_cpu'),
+-- 20
 ('Nome do processo (maior CPU)', 'Processo', 'Texto', 'psutil', 'processo_nome_max_cpu'),
+-- 21
 ('Uso CPU processo (%)', 'Processo', 'Percentual', 'psutil', 'processo_cpu_percent_max_cpu'),
+-- 22
 ('Usuarios Logados', 'Sistema', 'Quantidade', 'psutil', 'usuarios_logados'),
+-- 23
 ('Arquivos Abertos', 'Arquivos', 'Quantidade', 'psutil', 'arquivos_abertos');
 
 
@@ -140,6 +163,8 @@ INSERT INTO componente_servidor (id_servidor, id_componente, limite_componente, 
 (1, 8, 100, TRUE),
 (1, 9, 85, TRUE),
 (1, 23, 3000, TRUE),
+(1, 3, 100, TRUE),
+
 (2, 1, 80, TRUE),
 (2, 6, 80, TRUE),
 (2, 9, 85, TRUE),
@@ -160,6 +185,26 @@ show tables;
 
 select * from componente;
 select * from componente_servidor;
+desc componente_servidor;
+desc servidor;
 select * from servidor;
+
 select * from unidade;
 select * from usuario;
+
+-- INSERT INTO componente_servidor((SELECT id_servidor FROM servidor WHERE endereco_mac = 'bc:cd:99:c2:86:34'),id_componente, limite_componente, exibir) VALUES
+--                                 ('${id_servidor}', 1, 85, 'TRUE'),
+--                                 ('${id_servidor}', 3, 85, 'TRUE'),
+--                                 ('${id_servidor}', 6, 80, 'TRUE'),
+--                                 ('${id_servidor}', 7, 100, 'TRUE'),
+--                                 ('${id_servidor}', 8, 100, 'TRUE'),
+--                                 ('${id_servidor}', 9, 80, 'TRUE'),
+--                                 ('${id_servidor}', 10, 85, 'TRUE'),
+--                                 ('${id_servidor}', 11, 85, 'TRUE'),
+--                                 ('${id_servidor}', 12, 85, 'TRUE'),
+--                                 ('${id_servidor}', 13, 85, 'TRUE'),
+--                                 ('${id_servidor}', 18, 85, 'TRUE'),
+--                                 ('${id_servidor}', 20, 85, 'TRUE'),
+--                                 ('${id_servidor}', 21, 85, 'TRUE'),
+--                                 ('${id_servidor}', 22, 85, 'TRUE'),
+--                                 ('${id_servidor}', 23, 3000, 'TRUE');
