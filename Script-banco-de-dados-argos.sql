@@ -21,6 +21,16 @@ INSERT INTO unidade (cod_unidade, cep, cidade, rua, bairro, estado) VALUES
 (4, '03045000', 'São Paulo', 'Rua Tuiuti', 'Tatuapé', 'SP'),
 (5, '05010000', 'São Paulo', 'Rua Clélia', 'Lapa', 'SP');
 
+CREATE TABLE slackJira(
+	id_unidade_slackJira INT UNIQUE NOT NULL PRIMARY KEY,
+    email_autenticacao VARCHAR(100) NOT NULL,
+    webhook VARCHAR(100) NOT NULL,
+    identificador_wh VARCHAR(3) NOT NULL,
+    CONSTRAINT id_unidade_slackJira
+		FOREIGN KEY(id_unidade_slackJira)
+			REFERENCES unidade(id_unidade)
+    );
+
 CREATE TABLE usuario (
 	id_usuario INT UNIQUE NOT NULL AUTO_INCREMENT,
     fk_unidade INT NOT NULL,
