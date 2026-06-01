@@ -23,9 +23,11 @@ INSERT INTO unidade (cod_unidade, cep, cidade, rua, bairro, estado) VALUES
 
 CREATE TABLE slackJira(
 	id_unidade_slackJira INT UNIQUE NOT NULL PRIMARY KEY,
-    email_autenticacao VARCHAR(100) NOT NULL,
-    webhook VARCHAR(100) NOT NULL,
-    identificador_wh VARCHAR(3) NOT NULL,
+    token_api VARCHAR(1000) NOT NULL,
+    email_jira VARCHAR(100) NOT NULL,
+    url_jira VARCHAR(100) NOT NULL,
+    key_url_jira VARCHAR(3) NOT NULL,
+    webhook_slack VARCHAR(100) NOT NULL,
     CONSTRAINT id_unidade_slackJira
 		FOREIGN KEY(id_unidade_slackJira)
 			REFERENCES unidade(id_unidade)
