@@ -25,9 +25,9 @@ CREATE TABLE slackJira(
 	id_unidade_slackJira INT UNIQUE NOT NULL PRIMARY KEY,
     token_api VARCHAR(1000) NOT NULL,
     email_jira VARCHAR(100) NOT NULL,
-    url_jira VARCHAR(100) NOT NULL,
-    key_url_jira VARCHAR(3) NOT NULL,
-    webhook_slack VARCHAR(100) NOT NULL,
+    url_jira VARCHAR(250) NOT NULL,
+    key_url_jira VARCHAR(10) NOT NULL,
+    webhook_slack VARCHAR(250) NOT NULL,
     CONSTRAINT id_unidade_slackJira
 		FOREIGN KEY(id_unidade_slackJira)
 			REFERENCES unidade(id_unidade)
